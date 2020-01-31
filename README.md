@@ -14,8 +14,18 @@ The solution is implemented in JavaScript so no native module linking is require
 
 ## **Usage**
 After install this package, MathJax directory will be created inside the directory <projectDir> / assets.  
-For Android, copy the MathJax directory to `android/app/src/main/assets`.  
-For iOS, add the MathJax directory in `Resources` in XCode Workspace.  
+## For iOS  
+1. Open Xcode workspace   
+2. Drag and drop node_modules/react-native-mathjax-local/MathJax to `Project name` directory in Xcode  
+3. When a dialog shows up, make sure to check `Copy items if needed` and `Create folder references`  
+4. Press Finish  
+5. Build & Run  
+
+## For Android
+1. Copy node_modules/react-native-mathjax-local/MathJax to `android/app/src/main/assets`  
+2. Build & Run  
+
+
 ---
 ```
 import MathJax from 'react-native-mathjax-local';

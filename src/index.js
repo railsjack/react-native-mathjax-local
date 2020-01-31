@@ -2,27 +2,13 @@ import React from 'react';
 import { View, Platform } from 'react-native';
 import { WebView } from 'react-native-webview';
 
-const defaultOptions = {
-  showMathMenu: false,
-  messageStyle: 'none',
-  extensions: [ 'tex2jax.js' ],
-  jax: [ 'input/TeX', 'output/HTML-CSS' ],
-  tex2jax: {
-    inlineMath: [ ['$','$'], ['\\(','\\)'] ],
-    displayMath: [ ['$$','$$'], ['\\[','\\]'] ],
-    processEscapes: true,
-  },
-  TeX: {
-    extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js']
-  }
-};
-
 class MathJax extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      height: 1,
+      height: 0,
       width: 1,
+      opacity: 0,
     };
   }
 
@@ -33,51 +19,46 @@ class MathJax extends React.Component {
       this.setState({
         width,
         height,
+        opacity: 1,
       });
     } catch (error) {
       console.log('error on displaying latex')
     }
   }
 
-  wrapMathjax(content) {
-    const options = JSON.stringify(
-      Object.assign({}, defaultOptions, this.props.mathJaxOptions)
-    );
-    const sourcePrefix = Platform.OS === 'android' ? 'file:///android_asset' : './Resources';
-
-		return `
-      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-      <script type="text/x-mathjax-config">
-					MathJax.Hub.Config(${options});
-					MathJax.Hub.Queue(function() {
-          var width = document.documentElement.scrollWidth;
-          var height = document.documentElement.scrollHeight;
-					window.ReactNativeWebView.postMessage(JSON.stringify({width: width, height: height}));
-        });
-      </script>
-      <style type="text/css">
-				body {
-					margin: 0;
-					padding: 0;
-					background-color: transparent;
-					overflow: hidden;
-				}
-      </style>
-      <script async src="${sourcePrefix}/MathJax/MathJax.js"></script>
-      <body onselectstart="return false" ontouchstart="return false" scroll="no">
-			${content}
-		`;
-  }
   render() {
-    const html = this.wrapMathjax(this.props.children);
+    let formula = escape(this.props.children);
     const props = Object.assign({}, this.props, { html: undefined });
+    // const assetsPathPrefix = 
+    const assetsPathPrefix =
+      global.__DEV__ ? 'http://192.168.0.213:8000/'
+        : Platform.OS === 'android' ? 'file:///android_asset/'
+          : './';
+
+    const injectScript = `
+      writeMathJax("${formula}"); 
+      parseMathJax(); 
+      applyStyle("${this.props.style}");
+      true;
+    `;
+
     return (
-      <View style={{ width: this.state.width, height: this.state.height, ...props.style, }}>
+      <View style={{ opacity: this.state.opacity, width: this.state.width, height: this.state.height, ...props.containerStyle, }}>
         <WebView
           style={{ backgroundColor: 'transparent' }}
           scrollEnabled={false}
           onMessage={this.handleMessage.bind(this)}
-          source={{ html }}
+          source={{ uri: assetsPathPrefix + 'MathJax/MathJax.html' }}
+          allowFileAccess={true}
+          allowFileAccessFromFileURLs={true}
+          allowUniversalAccessFromFileURLs={true}
+          mixedContentMode={"always"}
+          cacheEnabled={false}
+          allowingReadAccessToURL="file://"
+          originWhitelist={['*']}
+          injectedJavaScript={injectScript}
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
         />
       </View>
     );

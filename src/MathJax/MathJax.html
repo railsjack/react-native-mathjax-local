@@ -1,0 +1,56 @@
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script>
+  var defaultOptions = {
+    skipStartupTypeset: true,
+    showMathMenu: false,
+    messageStyle: 'none',
+    extensions: ['tex2jax.js'],
+    jax: ['input/TeX', 'output/HTML-CSS'],
+    tex2jax: {
+      inlineMath: [['$', '$'], ['\(', '\)']],
+      displayMath: [['$$', '$$'], ['\[', '\]']],
+      processEscapes: true,
+    },
+    TeX: {
+      extensions: ['AMSmath.js', 'AMSsymbols.js', 'noErrors.js', 'noUndefined.js']
+    }
+  };
+</script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config(defaultOptions);
+</script>
+<script>
+function parseMathJax(){
+  var HUB = MathJax.Hub;
+  // HUB.Queue(["Typeset", HUB, "MathJaxContainer"]);
+  HUB.Queue(function() {
+    setTimeout(() => {
+      document.getElementById("MathJaxContainer").style.display = "";
+      var width = document.documentElement.scrollWidth;
+      var height = document.documentElement.scrollHeight;
+      window.ReactNativeWebView && window.ReactNativeWebView.postMessage(JSON.stringify({width: width, height: height}));
+    }, 1000);
+  });
+  HUB.Queue(["Typeset", HUB, "MathJaxContainer"]);
+}
+function writeMathJax(formula){
+  document.getElementById("MathJaxContainer").style.display = "none";
+  document.getElementById('MathJaxContainer').innerText = unescape(formula);
+}
+function applyStyle(style) {
+  style && (document.body.style = style);
+};
+</script>
+
+<style type="text/css">
+  body {
+    margin: 0;
+    background-color: transparent;
+    font-size: 14pt;
+  }
+</style>
+<script src="./latest.js?v2"></script>
+
+<body  onselectstart="return false" ontouchstart="return false" scroll="no">
+  <div id="MathJaxContainer" style="display: none;"></div>
+</body>

@@ -2,6 +2,7 @@
 <!-- <script src="MathJax.js"></script> -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
+    skipStartupTypeset: true,
     showMathMenu: false,
     messageStyle: 'none',
     extensions: [ 'tex2jax.js' ],
@@ -12,7 +13,7 @@
       processEscapes: true,
     },
     TeX: {
-      extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js']
+      //extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js']
     }
   });
   MathJax.Hub.Queue(function() {
@@ -22,6 +23,12 @@
     //window.ReactNativeWebView.postMessage(String(height));
   });
 </script>
+<script>
+function startMathJax(){
+  var math = document.getElementById("MathJaxContainer");
+  MathJax.Hub.Queue(["Typeset",MathJax.Hub,math]);
+}
+</script>
 <style type="text/css">
   body {
     margin: 0;
@@ -30,8 +37,8 @@
   }
 </style>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script> -->
-<!-- <script src="./MathJax/MathJax.js.orig.js"></script> -->
-<script async src="http://192.168.0.213:8000/a.js?v1"></script>
+<script src="./MathJax/MathJax.js"></script>
+<!-- <script async src="http://192.168.0.213:8000/a.js?v1"></script> -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script> -->
-
+<body id="MathJaxContainer">
 $\frac{1}{2\pi}\int_{-\infty}^{\infty}e^{-\frac{x^2}{2}}dx$
