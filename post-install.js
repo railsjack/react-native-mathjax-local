@@ -1,26 +1,34 @@
 'use strict'
 const fs = require('fs');
-const mkdirAssets = function(){
+const copyAssetFiles = async () => {
+  await mkdirAssets();
+  await mkdirMathJax();
+  await copyMathJax();
+}
+const mkdirAssets = async () => {
+  console.log('Creating assets directory');
   try {
-    fs.mkdirSync(process.env.INIT_CWD + '/assets');
+    await fs.mkdir(process.env.INIT_CWD + '/assets');
   } catch (error) {
     console.log(error);
   }
 }
-const mkdirMathJax = function(){
+const mkdirMathJax = async () => {
+  console.log('Creating assets/MathJax directory');
   try {
-    fs.mkdirSync(process.env.INIT_CWD + '/assets/MathJax');  
+    await fs.mkdir(process.env.INIT_CWD + '/assets/MathJax');  
   } catch (error) {
     console.log(error);
   }
 }
-const copyMathJax = function() {
+const copyMathJax = async () => {
+  console.log('Copying MathJax/MathJax.js');
   try {
-    fs.copyFileSync('src/MathJax/MathJax.js', process.env.INIT_CWD + '/assets/MathJax');
+    await fs.copyFile('src/MathJax/MathJax.js', process.env.INIT_CWD + '/assets/MathJax');
   } catch (error) {
     console.log(error);
   }
 }
-mkdirAssets();
-mkdirMathJax();
-copyMathJax();
+
+copyAssetFiles();
+
