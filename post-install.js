@@ -8,7 +8,7 @@ const copyAssetFiles = async () => {
 const mkdirAssets = async () => {
   console.log('Creating assets directory');
   try {
-    await fs.mkdir(process.env.INIT_CWD + '/assets');
+    fs.mkdirSync(process.env.INIT_CWD + '/assets');
   } catch (error) {
     console.log(error);
   }
@@ -16,7 +16,7 @@ const mkdirAssets = async () => {
 const mkdirMathJax = async () => {
   console.log('Creating assets/MathJax directory');
   try {
-    await fs.mkdir(process.env.INIT_CWD + '/assets/MathJax');  
+    fs.mkdirSync(process.env.INIT_CWD + '/assets/MathJax');  
   } catch (error) {
     console.log(error);
   }
@@ -24,7 +24,7 @@ const mkdirMathJax = async () => {
 const copyMathJax = async () => {
   console.log('Copying MathJax/MathJax.js');
   try {
-    await fs.copyFile('src/MathJax/MathJax.js', process.env.INIT_CWD + '/assets/MathJax');
+    fs.copyFileSync('src/MathJax/MathJax.js', process.env.INIT_CWD + '/assets/MathJax/MathJax.js');
   } catch (error) {
     console.log(error);
   }
