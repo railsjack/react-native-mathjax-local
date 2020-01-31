@@ -31,7 +31,7 @@ class MathJax extends React.Component {
     const props = Object.assign({}, this.props, { html: undefined });
     // const assetsPathPrefix = 
     const assetsPathPrefix =
-      global.__DEV__ ? 'http://192.168.0.213:8000/'
+      this.props.debug === true ? 'http://192.168.0.213:8000/'
         : Platform.OS === 'android' ? 'file:///android_asset/'
           : './';
 
