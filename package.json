@@ -1,0 +1,26 @@
+{
+    "name": "react-native-mathjax-local",
+    "version": "1.0.0",
+    "description": "React Native - Component to render MathJax formulas in React Native App",
+    "license": "MIT",
+    "main": "src/index.js",
+    "author": "jinnahrae@gmail.com",
+    "scripts": {
+        "postinstall": "node ./post-install.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/railsjack/react-native-mathjax-local"
+    },
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org/"
+    },
+    "keywords": [
+        "MathJax",
+        "React",
+        "Native"
+    ],
+    "dependencies": {
+        "react-native-webview": "latest"
+    }
+}

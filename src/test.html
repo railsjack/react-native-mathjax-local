@@ -1,0 +1,37 @@
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<!-- <script src="MathJax.js"></script> -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    showMathMenu: false,
+    messageStyle: 'none',
+    extensions: [ 'tex2jax.js' ],
+    jax: [ 'input/TeX', 'output/HTML-CSS' ],
+    tex2jax: {
+      inlineMath: [ ['$','$'], ['\\(','\\)'] ],
+      displayMath: [ ['$$','$$'], ['\\[','\\]'] ],
+      processEscapes: true,
+    },
+    TeX: {
+      extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js']
+    }
+  });
+  MathJax.Hub.Queue(function() {
+    var width = document.documentElement.scrollWidth;
+    var height = document.documentElement.scrollHeight;
+    console.log('width, height', width, height)
+    //window.ReactNativeWebView.postMessage(String(height));
+  });
+</script>
+<style type="text/css">
+  body {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+  }
+</style>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script> -->
+<!-- <script src="./MathJax/MathJax.js.orig.js"></script> -->
+<script async src="http://192.168.0.213:8000/a.js?v1"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"></script> -->
+
+$\frac{1}{2\pi}\int_{-\infty}^{\infty}e^{-\frac{x^2}{2}}dx$
