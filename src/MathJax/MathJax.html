@@ -28,6 +28,8 @@ function parseMathJax(){
       document.getElementById("MathJaxContainer").style.display = "";
       var width = document.documentElement.scrollWidth;
       var height = document.documentElement.scrollHeight;
+      document.body.style.height = height + "px";
+      document.body.style.width = width + "px";
       window.ReactNativeWebView && window.ReactNativeWebView.postMessage(JSON.stringify({width: width, height: height}));
     }, 1000);
   });
@@ -43,10 +45,22 @@ function applyStyle(style) {
 </script>
 
 <style type="text/css">
+  html, body {
+    height: 100%;
+    width: 100%;
+  }
   body {
     margin: 0;
-    background-color: transparent;
     font-size: 14pt;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  #MathJaxContainer {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
   }
 </style>
 <script src="./latest.js?v2"></script>
